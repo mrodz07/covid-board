@@ -1,0 +1,101 @@
+/* Elementos primarios */
+h6 {
+	font-size: 12px;
+}
+
+canvas {
+	height: 190px !important; 
+	border-radius:15px !important; 
+	background-color: rgba(255, 255, 255, 0) !important;
+}
+
+/* Elementos con nombre */
+#fila3 {
+	height: 300px;
+}
+
+#poblacion_afectada {
+	height: 300px;
+}
+
+#map { 
+	width:100%;
+	height:86%; 
+	border-radius:15px;
+	min-height: 285px;
+}
+
+#evolucion_casos {
+	height: 300px;
+}
+
+#logo { 
+	width: 50px; 
+	height: 50px;
+}
+
+/* Clases personalizadas */
+.gris {
+	background-color: #f7f7f7;
+	border: 0.5px solid #d8d8d8;
+}
+
+.blanco {
+	background-color: #ffffff;
+	border: 1px solid #d8d8d8;
+}
+
+/* Cambio de clases Bootstrap */
+.navbar-collapse {
+	max-height: 100vh;
+	overflow-y: scroll;
+}
+
+.navbar-text {
+	font-size: 22px;
+}
+
+.nav-item {
+	width: 100%;
+}
+
+.nav-link {
+	color: #404040;
+}
+
+.card-header {
+	font-size: 20px;
+}
+
+.nav-link:hover {
+	color: #404040;
+	text-decoration: underline; 
+}
+
+.info { 
+	padding: 6px 8px; 
+	font: 14px/16px Arial, Helvetica, sans-serif; 
+	background: white; 
+	background: rgba(255, 255, 255, 0.8); 
+	box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); 
+	border-radius: 5px; 
+}
+
+.info h4 {
+	margin: 0 0 5px;
+	color: #777;
+}
+
+.legend {
+	text-align: left; 
+	line-height: 18px;
+	color: #555;
+}
+
+.legend i {
+	width: 12px; 
+	height: 12px; 
+	float: left; 
+	margin-right: 8px; 
+	opacity: 0.7;
+}

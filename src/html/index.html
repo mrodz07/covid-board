@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<!-- JS de Charts.js -->
+		<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
+		<!-- CSS de Leaflet -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+		<!-- JS de Leaflet -->
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+		<!-- JQuery -->
+		<script src="https://code.jquery.com/jquery-3.5.1.min.js"></script> 
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous"/>
+		<!-- JS Bootstrap --> 
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+		<!-- Archivos propios -->
+		<script type="text/javascript" src="../js/mapa.js"></script>
+		<script type="text/javascript" src="../js/grafica.js"></script>
+		<script type="text/javascript" src="../js/grafica2.js"></script>
+		<script type="text/javascript" src="../js/grafica3.js"></script>
+		<script type="text/javascript" src="../js/script.js"></script>
+		<link rel="stylesheet" href="../css/style.css"/>
+		<title>Tablero COVID-19</title>
+	</head>
+
+	<body>
+		<!-- Barra de navegación -->
+		<nav class='navbar navbar-toggleable navbar-dark bg-dark sm-shadow'>
+
+			<a class='navbar-brand'> <img id='logo' src='../../img/coronavirus.png'/> </a>
+			<span class='navbar-text'>Tablero COVID-19</span>
+
+			<button class='navbar-toggler' data-toggle='collapse' data-target='#barra_nav'>
+				<span class='navbar-toggler-icon'/>
+			</button>
+
+		<!-- Opciones de navegación -->
+			<div class='collapse navbar-collapse' id='barra_nav'>
+				<ul class="navbar-nav ml-auto">
+					<li class='nav-item'> <a class='nav-link active' data-toggle='collapse' data-target='.navbar-collapse' href='#' onclick="getUSCase('confirmados', '#num_confirmados');getUSCase('fallecidos', '#num_fallecidos');getUSCase('negativos', '#num_negativos');getUsCaseDoughnut('confirmados');getStatePopulationDoughnut('us');actualizarGraficaDoughnut();"> Todo EE.UU. </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('alabama', '#num_confirmados');getStateDead('alabama', '#num_fallecidos');getStateNegative('alabama', '#num_negativos');getStateConfirmedDoughnut('alabama');getStatePopulationDoughnut('alabama');actualizarGraficaDoughnut();"> Alabama </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('alaska', '#num_confirmados');getStateDead('alaska', '#num_fallecidos');getStateNegative('alaska', '#num_negativos');getStateConfirmedDoughnut('alaska');getStatePopulationDoughnut('alaska');actualizarGraficaDoughnut();"> Alaska </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('arizona', '#num_confirmados');getStateDead('arizona', '#num_fallecidos');getStateNegative('arizona', '#num_negativos');getStateConfirmedDoughnut('arizona');getStatePopulationDoughnut('arizona');actualizarGraficaDoughnut();"> Arizona </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('arkansas', '#num_confirmados');getStateDead('arkansas', '#num_fallecidos');getStateNegative('arkansas', '#num_negativos');getStateConfirmedDoughnut('arkansas');getStatePopulationDoughnut('arkanasas');actualizarGraficaDoughnut();"> Arkansas </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('california', '#num_confirmados');getStateDead('california', '#num_fallecidos');getStateNegative('california', '#num_negativos');getStateConfirmedDoughnut('california');getStatePopulationDoughnut('california');actualizarGraficaDoughnut();"> California </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('colorado', '#num_confirmados');getStateDead('colorado', '#num_fallecidos');getStateNegative('colorado', '#num_negativos');getStateConfirmedDoughnut('colorado');getStatePopulationDoughnut('colorado');actualizarGraficaDoughnut();"> Colorado </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('connecticut', '#num_confirmados');getStateDead('connecticut', '#num_fallecidos');getStateNegative('connecticut', '#num_negativos');getStateConfirmedDoughnut('connecticut');getStatePopulationDoughnut('connecticut');actualizarGraficaDoughnut();"> Connecticut </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('delaware', '#num_confirmados');getStateDead('delaware', '#num_fallecidos');getStateNegative('delaware', '#num_negativos');getStateConfirmedDoughnut('delaware');getStatePopulationDoughnut('delaware');actualizarGraficaDoughnut();"> Delaware </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('district_columbia', '#num_confirmados');getStateDead('district_columbia', '#num_fallecidos');getStateNegative('district_columbia', '#num_negativos');getStateConfirmedDoughnut('district_columbia');getStatePopulationDoughnut('district_columbia');actualizarGraficaDoughnut();"> District Columbia </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('florida', '#num_confirmados');getStateDead('florida', '#num_fallecidos');getStateNegative('florida', '#num_negativos');getStateConfirmedDoughnut('florida');getStatePopulationDoughnut('florida');actualizarGraficaDoughnut();"> Florida </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('georgia', '#num_confirmados');getStateDead('georgia', '#num_fallecidos');getStateNegative('georgia', '#num_negativos');getStateConfirmedDoughnut('georgia');getStatePopulationDoughnut('georgia');actualizarGraficaDoughnut();"> Georgia </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('guam', '#num_confirmados');getStateDead('guam', '#num_fallecidos');getStateNegative('guam', '#num_negativos');getStateConfirmedDoughnut('guam');getStatePopulationDoughnut('guam');actualizarGraficaDoughnut();"> Guam </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('hawaii', '#num_confirmados');getStateDead('hawaii', '#num_fallecidos');getStateNegative('hawaii', '#num_negativos');getStateConfirmedDoughnut('hawaii');getStatePopulationDoughnut('hawaii');actualizarGraficaDoughnut();"> Hawái </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('idaho', '#num_confirmados');getStateDead('idaho', '#num_fallecidos');getStateNegative('idaho', '#num_negativos');getStateConfirmedDoughnut('idaho');getStatePopulationDoughnut('idaho');actualizarGraficaDoughnut();"> Idaho </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('illinois', '#num_confirmados');getStateDead('illinois', '#num_fallecidos');getStateNegative('illinois', '#num_negativos');getStateConfirmedDoughnut('illinois');getStatePopulationDoughnut('illinois');actualizarGraficaDoughnut();"> Illinois </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('indiana', '#num_confirmados');getStateDead('indiana', '#num_fallecidos');getStateNegative('indiana', '#num_negativos');getStateConfirmedDoughnut('indiana');getStatePopulationDoughnut('indiana');actualizarGraficaDoughnut();"> Indiana </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('iowa', '#num_confirmados');getStateDead('iowa', '#num_fallecidos');getStateNegative('iowa', '#num_negativos');getStateConfirmedDoughnut('iowa');getStatePopulationDoughnut('iowa');actualizarGraficaDoughnut();"> Iowa </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('kansas', '#num_confirmados');getStateDead('kansas', '#num_fallecidos');getStateNegative('kansas', '#num_negativos');getStateConfirmedDoughnut('kansas');getStatePopulationDoughnut('kansas');actualizarGraficaDoughnut();"> Kansas </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('kentucky', '#num_confirmados');getStateDead('kentucky', '#num_fallecidos');getStateNegative('kentucky', '#num_negativos');getStateConfirmedDoughnut('kentucky');getStatePopulationDoughnut('kentucky');actualizarGraficaDoughnut();"> Kentucky </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('louisiana', '#num_confirmados');getStateDead('louisiana', '#num_fallecidos');getStateNegative('louisiana', '#num_negativos');getStateConfirmedDoughnut('louisiana');getStatePopulationDoughnut('louisiana');actualizarGraficaDoughnut();"> Luisiana </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('maine', '#num_confirmados');getStateDead('maine', '#num_fallecidos');getStateNegative('maine', '#num_negativos');getStateConfirmedDoughnut('maine');getStatePopulationDoughnut('maine');actualizarGraficaDoughnut();"> Maine </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('maryland', '#num_confirmados');getStateDead('maryland', '#num_fallecidos');getStateNegative('maryland', '#num_negativos');getStateConfirmedDoughnut('maryland');getStatePopulationDoughnut('maryland');actualizarGraficaDoughnut();"> Maryland </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('massachusetts', '#num_confirmados');getStateDead('massachusetts', '#num_fallecidos');getStateNegative('massachusetts', '#num_negativos');getStateConfirmedDoughnut('massachusetts');getStatePopulationDoughnut('massachusetts');actualizarGraficaDoughnut();"> Massachusetts </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('michigan', '#num_confirmados');getStateDead('michigan', '#num_fallecidos');getStateNegative('michigan', '#num_negativos');getStateConfirmedDoughnut('michigan');getStatePopulationDoughnut('michigan');actualizarGraficaDoughnut();"> Míchigan </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('minnesota', '#num_confirmados');getStateDead('minnesota', '#num_fallecidos');getStateNegative('minnesota', '#num_negativos');getStateConfirmedDoughnut('minnesota');getStatePopulationDoughnut('minnesota');actualizarGraficaDoughnut();"> Minesota </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('mississippi', '#num_confirmados');getStateDead('mississippi', '#num_fallecidos');getStateNegative('mississippi', '#num_negativos');getStateConfirmedDoughnut('mississippi');getStatePopulationDoughnut('mississippi');actualizarGraficaDoughnut();"> Misisipi </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('missouri', '#num_confirmados');getStateDead('missouri', '#num_fallecidos');getStateNegative('missouri', '#num_negativos');getStateConfirmedDoughnut('missouri');getStatePopulationDoughnut('missouri');actualizarGraficaDoughnut();"> Misuri </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('montana', '#num_confirmados');getStateDead('montana', '#num_fallecidos');getStateNegative('montana', '#num_negativos');getStateConfirmedDoughnut('montana');getStatePopulationDoughnut('montana');actualizarGraficaDoughnut();"> Montana </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('nebraska', '#num_confirmados');getStateDead('nebraska', '#num_fallecidos');getStateNegative('nebraska', '#num_negativos');getStateConfirmedDoughnut('nebraska');getStatePopulationDoughnut('nebraska');actualizarGraficaDoughnut();"> Nebraska </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('nevada', '#num_confirmados');getStateDead('nevada', '#num_fallecidos');getStateNegative('nevada', '#num_negativos');getStateConfirmedDoughnut('nevada');getStatePopulationDoughnut('nevada');actualizarGraficaDoughnut();"> Nevada </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('new_hampshire', '#num_confirmados');getStateDead('new_hampshire', '#num_fallecidos');getStateNegative('new_hampshire', '#num_negativos');getStateConfirmedDoughnut('new_hampshire');getStatePopulationDoughnut('new_hampshire');actualizarGraficaDoughnut();"> Nuevo Hampshire </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('new_jersey', '#num_confirmados');getStateDead('new_jersey', '#num_fallecidos');getStateNegative('new_jersey', '#num_negativos');getStateConfirmedDoughnut('new_jersey');getStatePopulationDoughnut('new_jersey');actualizarGraficaDoughnut();"> Nueva Jersey </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('new_mexico', '#num_confirmados');getStateDead('new_mexico', '#num_fallecidos');getStateNegative('new_mexico', '#num_negativos');getStateConfirmedDoughnut('new_mexico');getStatePopulationDoughnut('new_mexico');actualizarGraficaDoughnut();"> Nuevo México </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('new_york', '#num_confirmados');getStateDead('new_york', '#num_fallecidos');getStateNegative('new_york', '#num_negativos');getStateConfirmedDoughnut('new_york');getStatePopulationDoughnut('new_york');actualizarGraficaDoughnut();"> Nueva York </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('north_carolina', '#num_confirmados');getStateDead('north_carolina', '#num_fallecidos');getStateNegative('north_carolina', '#num_negativos');getStateConfirmedDoughnut('north_carolina');getStatePopulationDoughnut('north_carolina');actualizarGraficaDoughnut();"> Carolina del Norte </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('north_dakota', '#num_confirmados');getStateDead('north_dakota', '#num_fallecidos');getStateNegative('north_dakota', '#num_negativos');getStateConfirmedDoughnut('north_dakota');getStatePopulationDoughnut('north_dakota');actualizarGraficaDoughnut();"> Dakota del Norte </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('northern_mariana_islands', '#num_confirmados');getStateDead('northern_mariana_islands', '#num_fallecidos');getStateNegative('northern_mariana_islands', '#num_negativos');getStateConfirmedDoughnut('northern_mariana_islands');getStatePopulationDoughnut('northern_mariana_islands');actualizarGraficaDoughnut();"> Islas Marías del Norte </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('ohio', '#num_confirmados');getStateDead('ohio', '#num_fallecidos');getStateNegative('ohio', '#num_negativos');getStateConfirmedDoughnut('ohio');getStatePopulationDoughnut('ohio');actualizarGraficaDoughnut();"> Ohio </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('oklahoma', '#num_confirmados');getStateDead('oklahoma', '#num_fallecidos');getStateNegative('oklahoma', '#num_negativos');getStateConfirmedDoughnut('oklahoma');getStatePopulationDoughnut('oklahoma');actualizarGraficaDoughnut();"> Oklahoma </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('oregon', '#num_confirmados');getStateDead('oregon', '#num_fallecidos');getStateNegative('oregon', '#num_negativos');getStateConfirmedDoughnut('oregon');getStatePopulationDoughnut('oregon');actualizarGraficaDoughnut();"> Oregón </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('pennsylvania', '#num_confirmados');getStateDead('pennsylvania', '#num_fallecidos');getStateNegative('pennsylvania', '#num_negativos');getStateConfirmedDoughnut('pennsylvania');getStatePopulationDoughnut('pennsylvania');actualizarGraficaDoughnut();"> Pensilvania </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('puerto_rico', '#num_confirmados');getStateDead('puerto_rico', '#num_fallecidos');getStateNegative('puerto_rico', '#num_negativos');getStateConfirmedDoughnut('puerto_rico');getStatePopulationDoughnut('puerto_rico');actualizarGraficaDoughnut();"> Puerto Rico </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('rhode_island', '#num_confirmados');getStateDead('rhode_island', '#num_fallecidos');getStateNegative('rhode_island', '#num_negativos');getStateConfirmedDoughnut('rhode_island');getStatePopulationDoughnut('rhode_island');actualizarGraficaDoughnut();"> Rhode Island </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('south_carolina', '#num_confirmados');getStateDead('south_carolina', '#num_fallecidos');getStateNegative('south_carolina', '#num_negativos');getStateConfirmedDoughnut('south_carolina');getStatePopulationDoughnut('south_carolina');actualizarGraficaDoughnut();"> Carolina del Sur </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('south_dakota', '#num_confirmados');getStateDead('south_dakota', '#num_fallecidos');getStateNegative('south_dakota', '#num_negativos');getStateConfirmedDoughnut('south_dakota');getStatePopulationDoughnut('south_dakota');actualizarGraficaDoughnut();"> Dakota del Sur </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('tennessee', '#num_confirmados');getStateDead('tennessee', '#num_fallecidos');getStateNegative('tennessee', '#num_negativos');getStateConfirmedDoughnut('tennessee');getStatePopulationDoughnut('tennessee');actualizarGraficaDoughnut();"> Tennessee </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('texas', '#num_confirmados');getStateDead('texas', '#num_fallecidos');getStateNegative('texas', '#num_negativos');getStateConfirmedDoughnut('texas');getStatePopulationDoughnut('texas');actualizarGraficaDoughnut();"> Texas </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('utah', '#num_confirmados');getStateDead('utah', '#num_fallecidos');getStateNegative('utah', '#num_negativos');getStateConfirmedDoughnut('utah');getStatePopulationDoughnut('utah');actualizarGraficaDoughnut();"> Utah </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('vermont', '#num_confirmados');getStateDead('vermont', '#num_fallecidos');getStateNegative('vermont', '#num_negativos');getStateConfirmedDoughnut('vermont');getStatePopulationDoughnut('vermont');actualizarGraficaDoughnut();"> Vermont </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('virgin_islands', '#num_confirmados');getStateDead('virgin_islands', '#num_fallecidos');getStateNegative('virgin_islands', '#num_negativos');getStateConfirmedDoughnut('virgin_islands');getStatePopulationDoughnut('virgin_islands');actualizarGraficaDoughnut();"> Islas virgenes </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('virginia', '#num_confirmados');getStateDead('virginia', '#num_fallecidos');getStateNegative('virginia', '#num_negativos');getStateConfirmedDoughnut('virginia');getStatePopulationDoughnut('virginia');actualizarGraficaDoughnut();"> Virginia </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('washington', '#num_confirmados');getStateDead('washington', '#num_fallecidos');getStateNegative('washington', '#num_negativos');getStateConfirmedDoughnut('washington');getStatePopulationDoughnut('washington');actualizarGraficaDoughnut();"> Washington </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('west_virginia', '#num_confirmados');getStateDead('west_virginia', '#num_fallecidos');getStateNegative('west_virginia', '#num_negativos');getStateConfirmedDoughnut('west_virginia');getStatePopulationDoughnut('west_virginia');actualizarGraficaDoughnut();"> Virginia Occidental </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('wisconsin', '#num_confirmados');getStateDead('wisconsin', '#num_fallecidos');getStateNegative('wisconsin', '#num_negativos');getStateConfirmedDoughnut('wisconsin');getStatePopulationDoughnut('wisconsin');actualizarGraficaDoughnut();"> Wisconsin </a> </li>
+					<li class='nav-item'> <a class='nav-link' data-toggle='collapse' data-target='.navbar-collapse'href='#' onclick="getStateConfirmed('wyoming', '#num_confirmados');getStateDead('wyoming', '#num_fallecidos');getStateNegative('wyoming', '#num_negativos');getStateConfirmedDoughnut('wyoming');getStatePopulationDoughnut('wyoming');actualizarGraficaDoughnut();"> Wyoming </a> </li>
+				</ul>
+			</div>
+		</nav>
+
+		<!-- Contenidos de la página -->
+		<div class='container-fluid bg-secondary'>
+
+			<!-- Primera fila -->
+			<div class='row'>
+
+				<!-- Primer grupo de cartas -->
+				<div class='col-md-4'>
+					<div class='card-deck mt-4 mb-4' style='height:87%; font-size:20px;'>
+						<div class='card text-center shadow bg-light'>
+							<div class='card-header'> Casos confirmados </div>
+							<div class='card-body align-items-center d-flex justify-content-center'>
+								<p class='text-warning' id='num_confirmados'> 0 </p>
+							</div>
+						</div>
+
+						<div class='card text-center shadow bg-light'>
+							<div class='card-header'> Casos fallecidos </div>
+							<div class='card-body align-items-center d-flex justify-content-center'>
+								<p class='text-danger' id='num_fallecidos'> 0 </p>
+							</div>
+						</div>
+
+						<div class='card text-center shadow bg-light'>
+							<div class='card-header'> Casos negativos </div>
+							<div class='card-body align-items-center d-flex justify-content-center'>
+								<p class='text-info' id='num_negativos'> 0 </p>
+							</div>
+						</div>
+					</div>
+				</div>
+
+				<!-- Mapa -->
+				<div class='col-md-4 container-fluid'>
+					<div class='mt-4 mb-3 shadow' id='map'></div> 
+				</div>
+
+				<!-- Gráfica de pastel --> 
+				<div class='col-md-4'>
+					<div class='card text-center mt-4 mb-4 shadow'>
+						<div class='card-header' style='font-size:20px;'> Distribución de los casos confirmados </div>
+							<div class='card-body align-items-center d-flex justify-content-center'>
+								<canvas id='grafica'></canvas>
+							</div>
+					</div>
+				</div>
+			</div>
+
+			<!-- Segunda fila -->
+			<div class='row'>
+
+			<!-- Gráfica de dispersión-->
+			<div class='col-md-4'>
+				<div class='card text-center mt-4 mb-4 shadow' id='evolucion_casos'>
+					<div class='card-header' style='font-size:20px;'> Evolución de los casos acumulados por día </div>
+					<div class='card-body align-items-center d-flex justify-content-center'>
+						<canvas id='grafica3'></canvas>
+					</div>
+				</div>
+			</div>
+
+			<!-- Lista dinámica -->
+				<div class='col-md-4 mt-4 mb-4'>
+					<ul class='nav nav-pills nav-stacked shadow' style='overflow-y:scroll; height:300px; border-radius:15px'>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Todo EE.UU. </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='eu_conf'> 0 </span> Confirmados, <span class='text-danger lista_fallecidos' id='eu_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='eu_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Alabama </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='alabama_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='alabama_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='alabama_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Alaska </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='alaska_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='alaska_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='alaska_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Arizona </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='arizona_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='arizona_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='arizona_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Arkansas </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='arkansas_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='arkansas_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='arkansas_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> California </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='california_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='california_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='california_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Colorado </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='colorado_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='colorado_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='colorado_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Connecticut </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='connecticut_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='connecticut_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='connecticut_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Delaware </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='delaware_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='delaware_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='delaware_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Distrito de Columbia </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='district_columbia_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='district_columbia_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='district_columbia_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Florida </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='florida_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='florida_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='florida_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Georgia </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='georgia_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='georgia_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='georgia_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Guam </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='guam_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='guam_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='guam_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Hawái </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='hawaii_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='hawaii_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='hawaii_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Idaho </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='idaho_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='idaho_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='idaho_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Illinois </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='illinois_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='illinois_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='illinois_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Indiana </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='indiana_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='indiana_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='indiana_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Iowa </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='iowa_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='iowa_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='iowa_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Kansas </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='kansas_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='kansas_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='kansas_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Kentucky </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='kentucky_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='kentucky_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='kentucky_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Luisiana </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='louisiana_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='louisiana_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='louisiana_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Maine </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='maine_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='maine_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='maine_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Maryland </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='maryland_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='maryland_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='maryland_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Massachusetts </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='massachusetts_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='massachusetts_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='massachusetts_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Míchigan </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='michigan_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='michigan_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='michigan_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Minesota </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='minnesota_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='minnesota_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='minnesota_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Misisipi </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='mississippi_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='mississippi_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='mississippi_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Misuri </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='missouri_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='missouri_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='missouri_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Montana </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='montana_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='montana_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='montana_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Nebraska </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='nebraska_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='nebraska_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='nebraska_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Nevada </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='nevada_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='nevada_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='nevada_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Nueva Hampshire </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='new_hampshire_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='new_hampshire_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='new_hampshire_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Nueva Jersey </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='new_jersey_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='new_jersey_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='new_jersey_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Nuevo México </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='new_mexico_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='new_mexico_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='new_mexico_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Nueva York </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='new_york_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='new_york_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='new_york_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Carolina del norte </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='north_carolina_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='north_carolina_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='north_carolina_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Dakota del norte </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='north_dakota_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='north_dakota_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='north_dakota_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Islas Marias del Norte </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='northen_mariana_islands_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='northen_mariana_islands_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='northen_mariana_islands_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Ohio </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='ohio_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='ohio_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='ohio_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Oklahoma </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='oklahoma_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='oklahoma_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='oklahoma_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Oregon </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='oregon_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='oregon_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='oregon_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Pennsylvania </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='pennsylvania_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='pennsylvania_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='pennsylvania_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Puerto Rico </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='puerto_rico_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='puerto_rico_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='puerto_rico_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Rhode Island </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='rhode_island_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='rhode_island_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='rhode_island_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Carolina del Sur </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='south_carolina_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='south_carolina_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='south_carolina_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Dacota del Sur </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='south_dakota_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='south_dakota_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='south_dakota_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Tennessee </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='tennessee_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='tennessee_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='tennessee_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Texas </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='texas_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='texas_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='texas_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Utah </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='utah_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='utah_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='utah_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Vermont </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='vermont_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='vermont_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='vermont_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Islas virgenes </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='virgin_islands_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='virgin_islands_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='virgin_islands_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Virginia </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='virginia_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='virginia_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='virginia_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Washington </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='washington_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='washington_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='washington_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Virginia del este </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='west_virginia_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='west_virginia_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='west_virginia_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item blanco'> 
+							<a class='nav-link' href='#'> Wisconsin </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='wisconsin_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='wisconsin_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='wisconsin_nega'>0</span> Negativos</h6> 
+						</li>
+						<li class='nav-item gris'> 
+							<a class='nav-link' href='#'> Wyoming </a> 
+							<h6> &nbsp;&nbsp;&nbsp; <span class='text-warning lista_confirmados' id='wyoming_conf'> 0</span> Confirmados, <span class='text-danger lista_fallecidos' id='wyoming_fall'>0</span> Fallecidos, <span class='text-info lista_negativos' id='wyoming_nega'>0</span> Negativos</h6> 
+						</li>
+					 </ul>
+				</div>
+
+			<!-- Carta de población afectada --> 
+			<div class='col-md-4'>
+				<div class='card text-center mt-4 mb-4 shadow' id='poblacion_afectada'> 
+					<div class='card-header' style='font-size:20px;'> Porcentaje de población afectada </div>
+						<div class='card-body align-items-center d-flex justify-content-center'>
+							<canvas id='grafica2'></canvas>
+						</div>
+				</div>
+			</div>
+
+			</div>
+
+			<!-- Tercera fila -->
+			<div class='row'>
+				<div class='col-lg-12 mb-2'>
+					<div class='card-deck mt-4 mb-4'>
+
+						<div class='card text-center shadow bg-light'>
+							<div class='card-header text-center'> Noticias recientes </div>
+							<div class='card-body'>
+								<a class='d-block text-dark' href='https://www.eluniversal.com.mx/mundo/trump-busca-capitalizar-avances-de-vacuna-anticovid-en-primera-intervencion-en-8-dias' target='_blank'> Trump busca capitalizar avances de vacunas antiCovid en primera intervención en 8 días </h5> 
+								<img class='mx-auto d-block mt-2' width='250' height='154' src='https://www.eluniversal.com.mx/sites/default/files/2020/11/13/donald-trump.jpg'/>
+								<a class='d-block text-dark' href='https://www.eluniversal.com.mx/mundo/las-ultimas-noticias-sobre-la-epidemia-de-coronavirus-covid-19' target='_blank'> Ver más </a>
+							</div>
+						</div>
+
+						<div class='card text-center shadow bg-light'>
+							<div class='card-header text-center'>¿Tienes síntomas?</div>
+							<div class='card-body'>
+								<a class='d-block text-dark' href='https://www.eluniversal.com.mx/nacion/que-se-debe-hacer-si-se-presentan-sintomas-de-coronavirus' target='_blank'> ¿Qué se debe hacer si se presentan síntomas de coronavirus? </h5> 
+								<img class='mx-auto d-block mt-2' width='250' height='154' src='https://www.eluniversal.com.mx/sites/default/files/2020/03/15/resfriado.jpg'/>
+								<a class='d-block text-dark' href='https://www.who.int/es/emergencies/diseases/novel-coronavirus-2019' target='_blank'> Ver más </a>
+							</div>
+						</div>
+
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Footer que tiene de dónde saque el logo -->
+		<footer>
+			<div class='container-fluid bg-dark text-secondary'>
+				<div>Icons made by <a class='text-secondary' href="https://www.flaticon.com/authors/freepik" title="Freepik">Freepik</a> from <a class='text-secondary' href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+			</div>
+		</footer>
+
+	</body>
+</html>
